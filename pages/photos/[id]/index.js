@@ -14,8 +14,10 @@ const index = ({ photo }) => {
   );
 };
 
-export const getStaticProps = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/photos/2");
+export const getStaticProps = async (context) => {
+  // getStaticPaths로부터 context를 받아올 수 있다.  => context.params.id
+  const { id } = context.params;
+  const res = await fetch(`https://jsonplaceholder.typicode.com/photos/${id}`);
   const photo = await res.json();
 
   return {
